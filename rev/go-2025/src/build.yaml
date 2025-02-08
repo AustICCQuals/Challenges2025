@@ -1,0 +1,11 @@
+version: 1
+builder: alpine@3.21
+commands:
+  - mv /root/file.go /usr/lib/go/src/os/file.go
+  - go build -o /root/go2025 /root/main.go
+files:
+  - main.go
+  - patch/file.go
+output: /root/go2025
+packages:
+  - go

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JS Login</title>
+    <style>
+        body {
+            background-color: #008080;
+            font-family: 'Courier New', monospace;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .login-container {
+            background-color: #c0c0c0;
+            border: 2px solid #000;
+            box-shadow: inset -2px -2px #808080, inset 2px 2px #fff;
+            padding: 20px;
+            width: 400px;
+        }
+
+        .header {
+            background-color: #000080;
+            color: #fff;
+            padding: 5px 10px;
+            margin: -20px -20px 20px -20px;
+            font-weight: bold;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #000;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 5px;
+            border: 2px solid #808080;
+            background-color: #fff;
+            font-family: 'Courier New', monospace;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #c0c0c0;
+            border: 2px solid #000;
+            box-shadow: inset -2px -2px #808080, inset 2px 2px #fff;
+            padding: 5px 15px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+        }
+
+        button:active {
+            box-shadow: inset 2px 2px #808080, inset -2px -2px #fff;
+        }
+
+        #message {
+            margin-top: 15px;
+            padding: 10px;
+            border: 1px solid #000;
+            background-color: #fff;
+            min-height: 20px;
+        }
+
+        .success {
+            color: #008000;
+        }
+
+        .error {
+            color: #ff0000;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="header">
+            JS LOGIN
+        </div>
+        <form id="loginForm" onsubmit="handleLogin(event)">
+            <div class="input-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="input-group">
+                <label for="twofac">2FA Code:</label>
+                <input type="text" id="twofac" name="twofac" required>
+            </div>
+            <button type="submit">LOGIN</button>
+        </form>
+        <div id="message"></div>
+    </div>
+
+    <script>
+        async function handleLogin(event) {
+            event.preventDefault();
+            const messageDiv = document.getElementById('message');
+            const formData = new FormData(event.target);
+            
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        username: formData.get('username'),
+                        password: formData.get('password'),
+                        twofac: formData.get('twofac')
+                    })
+                });
+
+                const data = await response.json();
+                messageDiv.textContent = data.message;
+                messageDiv.className = data.success ? 'success' : 'error';
+            } catch (error) {
+                messageDiv.textContent = 'Connection error. Please try again.';
+                messageDiv.className = 'error';
+            }
+        }
+    </script>
+</body>
+</html>

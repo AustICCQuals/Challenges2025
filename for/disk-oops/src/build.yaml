@@ -1,0 +1,18 @@
+version: 1
+builder: alpine@3.21
+commands:
+  - echo "oiccflag{do_not_taunt_happy_fun_ext4_A4FS8}" > /root/flag.txt
+  # append 8MB of random data onto /root/flag.txt
+  - dd if=/dev/urandom of=/root/flag.txt bs=4096 count=512 seek=1
+  # Compress the flag file
+  - gzip /root/flag.txt
+  # Check the size of the compressed file
+  - ls -la /root/flag.txt.gz
+  # Move the flag file to the target directory
+  - mv /root/flag.txt.gz /usr/sbin/flag.txt.gz
+  # Run the disk-oops binary to fragment the disk
+  - /root/disk-oops -source /usr/sbin -target /mnt
+files:
+  - disk-oops
+volumes:
+  - disk-oops,32,/mnt,persist

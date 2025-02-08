@@ -1,0 +1,1 @@
+Go 2025 comes with some great new security features to make the job of a malware author much harder. We provide a demo program and source code compiled with Go 2025 to demonstrate the new feature set.

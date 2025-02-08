@@ -1,0 +1,51 @@
+services:
+  pwn_gisnep:
+    build: pwn/gisnep/service
+    privileged: true
+    ports:
+      - "6001:1337"
+    networks:
+      - pwn_gisnep
+  pwn_the_dependency:
+    build: pwn/the-dependency/service
+    privileged: true
+    ports:
+      - "6002:1337"
+    networks:
+      - pwn_the_dependency
+  pwn_restapi:
+    build: pwn/restapi/service
+    privileged: true
+    ports:
+      - "6000:1337"
+      - "30000-31000:30000-31000"
+    networks:
+      - pwn_restapi
+  web_beans:
+    build: web/beans
+    read_only: false
+    ports:
+      - "5002:1337"
+    networks:
+      - web_beans
+  web_login:
+    build: web/login
+    read_only: true
+    ports:
+      - "5000:1337"
+    networks:
+      - web_login
+  web_manic:
+    build: web/manic
+    read_only: false
+    ports:
+      - "5001:1337"
+    networks:
+      - web_manic
+networks:
+  pwn_gisnep:
+  pwn_the_dependency:
+  pwn_restapi:
+  web_beans:
+  web_login:
+  web_manic:

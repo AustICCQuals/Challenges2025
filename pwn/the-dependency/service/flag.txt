@@ -1,0 +1,1 @@
+oiccflag{rust_prevents_segfaults_even_in_c_code_6ba8e93137309b53}

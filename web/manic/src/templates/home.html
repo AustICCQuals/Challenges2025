@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block container_class %}container{% endblock %}
+
+{% block content %}
+<h1>Man Page Viewer</h1>
+<p>View man pages through a simple web interface. Try these examples:</p>
+<ul>
+    <li><a href="/1/grep">grep(1)</a> - print lines that match patterns</li>
+    <li><a href="/2/open">open(2)</a> - open and possibly create a file</li>
+    <li><a href="/7/ascii">ascii(7)</a> - ASCII character set encoded in octal, decimal, and hexadecimal</li>   
+</ul>
+<p>Usage: /section/command</p>
+{% endblock %}
